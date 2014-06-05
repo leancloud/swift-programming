@@ -15,51 +15,35 @@ Swift 概览
 >
 > 为得到最好的体验，请在 Xcode 中学习本章。Xcode 的 Playgrounds 让你可以在编辑代码之后马上看到结果。
 
-### Simple Values 
+### 简单的值
 
-Use let to make
-a variable. The value of a constant doesn’t need to be known at compile
-time, but you must assign it a value exactly once. This means you can
-use constants to name a value that you determine once but use in many
-places.
+用 `let` 来创建一个常量，用 `var` 来创建一个变量。一个常量的值不需要在编译时确定，但必须只被赋值一次。也就是说你可以用常量来为一个你会在多个地方使用但只会确定一次的值命名。
 
-    var
-    myVariable
-    let
+    var myVariable = 42
+    myVariable = 50
+    let myConstant = 42
 
-A constant or variable must have the same type as the value you want to
-assign to it. However, you don’t always have to write the type
-explicitly. Providing a value when you create a constant or variable
-lets the compiler infer its type. In the example above, the compiler
-infers that myVariable is an integer because its initial
-value is a integer.
+一个常量或变量的类型必须和你想要赋值给它的值的类型一致，但你并不需要总把类型写出来。如果你在创建变量或常量时提供一个值，编译器会推导出它的类型。在上面的例子里，编译器推导出 `myVariable` 是一个整型变量，因为它的初始值是一个整数。
 
-If the initial value doesn’t provide enough information (or if there is
-no initial value), specify the type by writing it after the variable,
-separated by a colon.
+如果初始值没有提供足够的信息（或者没有初始值），那么你需要在变量或常量后面指定类型，两者用冒号隔开。
 
-    let
-    let
-    let
+    let implicitInteger = 70
+    let implicitDouble = 70.0
+    let explicitDouble: Double = 70
 
-Experiment
+> 实验
+>
+> 创建一个显示指定为 `Float` 类型的值为 `4` 的常量。
 
-Create a constant with an explicit type of Float and a
-value of 4.
+值永远不会被自动转换为其他类型。如果你需要把一个值转换为其他类型，需要创建一个所需类型的实例。
 
-Values are never implicitly converted to another type. If you need to
-convert a value to a different type, explicitly make an instance of the
-desired type.
+    let label = "The width is "
+    let width = 94
+    let widthLabel = label + String(width)
 
-    let
-    let
-    let +
-    String)
-
-Experiment
-
-Try removing the conversion to String from the last line.
-What error do you get?
+> 实验
+>
+> 试试从最后一行里把到 `String` 的转换去掉。你看到什么错误？
 
 There’s an even simpler way to include values in strings: Write the
 value in parentheses, and write a backslash (\) before
