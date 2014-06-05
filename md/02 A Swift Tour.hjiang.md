@@ -65,11 +65,10 @@ Swift 概览
     ]
     occupations["Jayne"] = "Public Relations”
 
-To create an empty array or dictionary, use the initializer syntax.
+可以用初始化的语法来创建空的 array 或 dictionary。
 
-    let[]()
-    let =
-    Dictionary\>()
+    let emptyArray = String[]()
+    let emptyDictionary = Dictionary<String, Float>()
 
 If type information can be inferred, you can write an empty array as
 []—for
