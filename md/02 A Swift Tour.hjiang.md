@@ -1,33 +1,19 @@
 ‌‌
 
-A Swift Tour 
+Swift 概览
 ------------
 
-Tradition suggests that the first program in a new language should print
-the words “Hello, world” on the screen. In Swift, this can be done in a
-single line:
+按照传统，一门新语言的第一个程序应该在屏幕上打印出「Hello, world」。在 Swift 中这可以用一行完成：
 
-    println)
+    println("Hello, world")
 
-If you have written code in C or Objective-C, this syntax looks familiar
-to you—in Swift, this line of code is a complete program. You don’t need
-to import a separate library for functionality like input/output or
-string handling. Code written at global scope is used as the entry point
-for the program, so you don’t need a main function. You
-also don’t need to write semicolons at the end of every statement.
+如果你曾经用 C 或 Objective-C 写过程序，这样的写法应该看起来很熟悉 --- 在 Swift 中，这行代码是一个完整的程序。你不需要为输入输出或操作字符串这样的功能导入任何单独的库。在全局范围的代码会作为程序的入口运行，所以你不需要写一个 `main` 函数。你也无需用 `;` 来结束每个语句。
 
-This tour gives you enough information to start writing code in Swift by
-showing you how to accomplish a variety of programming tasks. Don’t
-worry if you don’t understand something—everything introduced in this
-tour is explained in detail in the rest of this book.
+通过说明如果完成各种编程任务，这篇概览将让你得到足够的信息以开始编写 Swift 程序。即使碰到有什么你还不明白的也不用担心 --- 概览中介绍的所有内容都会在本书的后面章节中有详细解释。
 
-Note
-
-For the best experience, open this chapter as a playground in Xcode.
-Playgrounds allow you to edit the code listings and see the result
-immediately.
-
-‌
+> 建议
+>
+> 为得到最好的体验，请在 Xcode 中学习本章。Xcode 的 Playgrounds 让你可以在编辑代码之后马上看到结果。
 
 ### Simple Values 
 
