@@ -1,5 +1,3 @@
-‌‌
-
 Swift 概览
 ------------
 
@@ -45,35 +43,27 @@ Swift 概览
 >
 > 试试从最后一行里把到 `String` 的转换去掉。你看到什么错误？
 
-There’s an even simpler way to include values in strings: Write the
-value in parentheses, and write a backslash (\) before
-the parentheses. For example:
+有一个更简单的在字符串中包含值的方法：把值写在括号中，并在括号前面加一个反斜杠（`\`）。例如：
 
-    let
-    let
-    let =
-    "I have 
-    let =
-    "I have  +
-    oranges
+    let apples = 3
+    let oranges = 5
+    let appleSummary = "I have \(apples) apples."
+    let fruitSummary = "I have \(apples + oranges) pieces of fruit."
 
-Experiment
+> 实验
+>
+> 用 `\()` 在一个字符串中包含一个浮点数计算，并把某人的名字包含在一个问候中。
 
-Use \() to include a floating-point calculation in a
-string and to include someone’s name in a greeting.
+用方括号（`[]`）来创建数组（array）和字典（dictionary），并通过把索引或 key 写在方括号中来访问他们的元素。
 
-Create arrays and dictionaries using brackets ([]), and
-access their elements by writing the index or key in brackets.
-
-    var,
-    "water"]
-    shoppingList
-     
-    var = [
-        "Malcolm",
-        "Kaylee",
+    var shoppingList = ["catfish", "water", "tulips", "blue paint"]
+    shoppingList[1] = "bottle of water"
+    
+    var occupations = [
+        "Malcolm": "Captain",
+        "Kaylee": "Mechanic",
     ]
-    occupations
+    occupations["Jayne"] = "Public Relations”
 
 To create an empty array or dictionary, use the initializer syntax.
 
