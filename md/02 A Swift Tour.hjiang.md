@@ -93,8 +93,7 @@ Swift 概览
 
 在 `if` 语句中，条件必须是布尔表达式 - 也就是说像 `if score { ... }` 这样的代码是错误的，它不是一个与零的隐式比较。
 
-You can use if together to work
-with values that might be missing. These values are represented as
+你可以把 `if` 和 `let` 在一起用以操作可能为空的值。These values are represented as
 optionals. An optional value either contains a value or contains
 nil to indicate that the value is missing. Write a
 question mark (?) after the type of a value to mark the
