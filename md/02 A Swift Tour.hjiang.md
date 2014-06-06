@@ -70,39 +70,28 @@ Swift 概览
     let emptyArray = String[]()
     let emptyDictionary = Dictionary<String, Float>()
 
-If type information can be inferred, you can write an empty array as
-[]—for
-example, when you set a new value for a variable or pass an argument to
-a function.
+当类型信息可以被推导出来时，你可以用 `[]` 表示一个空 array 或用 `[:]` 表示一个空 dictionary - 例如，当你给变量赋值或给函数传递参数时。
 
-    shoppingList = []
-    // Went shopping and bought everything.
+    shoppingList = [] // Went shopping and bought everything.
 
 ‌
 
-### Control Flow 
+### 控制流
 
-Use if to make conditionals,
-and use for,
-while to make
-loops. Parentheses around the condition or loop variable are optional.
-Braces around the body are required.
+使用 `if` 和 `switch` 来构造条件，使用 `for`-`in`、`for`、`while` 和 `do`-`while` 来构造循环。在条件或循环变量两边的括号是可选的，在主体两边的花括号是必须的。
 
-    let,
-    103]
-    var
-    for {
-        if {
-            teamScore
+    let individualScores = [75, 43, 103, 87, 12]
+    var teamScore = 0
+    for score in individualScores {
+        if score > 50 {
+            teamScore += 3
         } else {
-            teamScore
+            teamScore += 1
         }
     }
     teamScore
 
-In an if statement, the conditional must be a Boolean
-expression—this means that code such as if score 
-is an error, not an implicit comparison to zero.
+在 `if` 语句中，条件必须是布尔表达式 - 也就是说像 `if score { ... }` 这样的代码是错误的，它不是一个与零的隐式比较。
 
 You can use if together to work
 with values that might be missing. These values are represented as
