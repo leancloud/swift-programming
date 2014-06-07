@@ -93,37 +93,24 @@ Swift 概览
 
 在 `if` 语句中，条件必须是布尔表达式 - 也就是说像 `if score { ... }` 这样的代码是错误的，它不是一个与零的隐式比较。
 
-你可以把 `if` 和 `let` 在一起用以操作可能为空的值。These values are represented as
-optionals. An optional value either contains a value or contains
-nil to indicate that the value is missing. Write a
-question mark (?) after the type of a value to mark the
-value as optional.
+你可以把 `if` 和 `let` 在一起用以操作可能为空的值。这些值被表示为可选的。一个可选值要么有一个值，要么是 `nil` 以表示值不存在。在一个值的类型类型后面加一个问号（`?`）来把它标记为可选的。
 
-    var? =
-    "Hello"
-    optionalString
-     
-    var? =
-    "John Appleseed"
-    var
-    if {
-        greeting
+    var optionalString: String? = "Hello"
+    optionalString == nil
+
+    var optionalName: String? = "John Appleseed"
+    var greeting = "Hello!"
+    if let name = optionalName {
+        greeting = "Hello, \(name)"
     }
 
-Experiment
+> 实验
+>
+> 把 `optionalName` 改为 `nil`。你得到怎么样的问候？加一个 `else` 子句以在 `optionalName` 为 `nil` 时设定一个不同的问候语。
 
-Change optionalName. What greeting
-do you get? Add an else clause that sets a different
-greeting if optionalName.
+当可选值为 `nil` 时，条件为 `false`，那么花括号里的语句就被跳过了。否则 `optionalName` 里的值就被赋值给 `let` 之后的常量，它让这个值在后面的代码块中可用。
 
-If the optional value is nil, the conditional is
-false and the code in braces is skipped. Otherwise, the
-optional value is unwrapped and assigned to the constant after
-let, which makes the unwrapped value available inside the
-block of code.
-
-Switches support any kind of data and a wide variety of comparison
-operations—they aren’t limited to integers and tests for equality.
+`switch` 支持任何类型的数据以及多种比较操作 - 并不仅限于整数和对相等的测试。
 
     let
     switch {
