@@ -277,3 +277,41 @@ numbers.map({
 你可以用数字而不是名称来引用参数 - 这种方式对很短的闭包特别有用。被作为最后的参数传递给一个函数的闭包可以出现在括号后面。
 
     sort([1, 5, 3, 12, 2]) { $0 > $1 }
+
+### 对象和类
+
+用 `class` 后面跟上类名来创建一个类。类里的属性是用与常量和变量相同的方式声明的，只不过是在一个类的上下文中而已。同理，方法的声明也和函数一样。
+
+    class Shape {
+        var numberOfSides = 0
+        func simpleDescription() -> String {
+            return "A shape with \(numberOfSides) sides."
+        }
+    }
+
+> 实验
+>
+> 用 `let` 增加一个常量属性，并增加另一个接受一个参数的方法。
+
+通过把一对括号放在类名后面可以创建一个类的实例。用点操作符可以访问这个实例的属性和方法。
+
+    var shape = Shape()
+    shape.numberOfSides = 7
+    var shapeDescription = shape.simpleDescription()
+
+这个版本的 `Shape` 类还少了样重要的东西：一个在实例创建时用来做设置的构造函数。用 `init` 可以创建一个。
+
+    class NamedShape {
+        var numberOfSides: Int = 0
+        var name: String
+
+        init(name: String) {
+            self.name = name
+        }
+
+        func simpleDescription() -> String {
+            return "A shape with \(numberOfSides) sides."
+        }
+    }
+
+注意 `self` 用来区分叫 `name` 的属性和传递给构造函数的 `name` 参数。构造函数的参数在创建实例时以函数参数同样的方式传递。所有的属性都需要被赋予一个值 - 要么在声明里（如 `numberOfSides`），要么在构造函数里（如 `name`）。
