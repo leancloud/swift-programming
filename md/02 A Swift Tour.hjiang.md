@@ -220,3 +220,60 @@ Swift 概览
 > 写一个计算所有参数平均值的函数。
 
 函数是可以嵌套的。嵌套的函数可以访问在外层函数声明的变量。你可以用嵌套函数来组织一个很长或很复杂的函数中的代码。
+
+    func returnFifteen() -> Int {
+        var y = 10
+        func add() {
+            y += 5
+        }
+        add()
+        return y
+    }
+    returnFifteen()
+
+函数是一个一级的类型。这意味着一个函数可以把另一个函数作为它的返回值返回。
+
+    func makeIncrementer() -> (Int -> Int) {
+        func addOne(number: Int) -> Int {
+            return 1 + number
+        }
+        return addOne
+    }
+    var increment = makeIncrementer()
+    increment(7)
+
+一个函数也可以作为另一个函数的参数。
+
+    func hasAnyMatches(list: Int[], condition: Int -> Bool) -> Bool {
+        for item in list {
+            if condition(item) {
+                return true
+            }
+        }
+        return false
+    }
+    func lessThanTen(number: Int) -> Bool {
+        return number < 10
+    }
+    var numbers = [20, 19, 7, 12]
+    hasAnyMatches(numbers, lessThanTen)
+
+函数事实上是闭包（closure）的一种特殊形式。可以在花括号（`{}`）之间包含代码来构造一个匿名的闭包。使用 `in` 把参数和返回值类型与主体分隔开。
+
+numbers.map({
+    (number: Int) -> Int in
+    let result = 3 * number
+    return result
+    })
+
+> 实验
+>
+> 重写这个闭包，让它对所有奇数返回零。
+
+你有几种更简洁地表示闭包的方式。当已知一个闭包的类型时，如作为 delegate 的回调时，你可以省略参数的类型、返回值类型、或两者。单语句的闭包隐式地返回这个语句的结果。
+
+    numbers.map({ number in 3 * number })
+
+你可以用数字而不是名称来引用参数 - 这种方式对很短的闭包特别有用。被作为最后的参数传递给一个函数的闭包可以出现在括号后面。
+
+    sort([1, 5, 3, 12, 2]) { $0 > $1 }
