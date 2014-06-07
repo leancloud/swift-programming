@@ -196,3 +196,27 @@ Swift 概览
 >
 > 去掉 `day` 参数。增加一个参数以把当天的午餐特价菜包含在问候中。
 
+用一个 tuple 来从函数返回多个值。
+
+    func getGasPrices() -> (Double, Double, Double) {
+        return (3.59, 3.69, 3.79)
+    }
+    getGasPrices()
+
+函数也可以接受可变个数的参数，参数被收集到一个 array 里。
+
+    func sumOf(numbers: Int...) -> Int {
+        var sum = 0
+        for number in numbers {
+            sum += number
+        }
+        return sum
+    }
+    sumOf()
+    sumOf(42, 597, 12)
+
+> 实验
+>
+> 写一个计算所有参数平均值的函数。
+
+函数是可以嵌套的。嵌套的函数可以访问在外层函数声明的变量。你可以用嵌套函数来组织一个很长或很复杂的函数中的代码。
