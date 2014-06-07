@@ -58,7 +58,7 @@ Swift 概览
 
     var shoppingList = ["catfish", "water", "tulips", "blue paint"]
     shoppingList[1] = "bottle of water"
-    
+
     var occupations = [
         "Malcolm": "Captain",
         "Kaylee": "Mechanic",
@@ -112,750 +112,87 @@ Swift 概览
 
 `switch` 支持任何类型的数据以及多种比较操作 - 并不仅限于整数和对相等的测试。
 
-    let
-    switch {
-    case:
-        let =
-    "Add some raisins and make ants on a log."
-    case:
-        let =
-    "That would make a good tea sandwich."
-    case
-    x):
-        let =
-    "Is it a spicy 
+    let vegetable = "red pepper"
+    switch vegetable {
+    case "celery":
+        let vegetableComment = "Add some raisins and make ants on a log."
+    case "cucumber", "watercress":
+        let vegetableComment = "That would make a good tea sandwich."
+    case let x where x.hasSuffix("pepper"):
+        let vegetableComment = "Is it a spicy \(x)?"
     default:
-        let =
-    "Everything tastes good in soup."
+        let vegetableComment = "Everything tastes good in soup."
     }
 
-Experiment
+> 实验
+>
+> 试着把 `default` 部分去掉，你会看到什么错误？
 
-Try removing the default case. What error do you get?
+执行完匹配的 `case` 后，程序会跳出整个 `switch` 语句而不会继续执行下一个 `case`，所以不需要在每一个 `case` 的最后显式地跳出。
 
-After executing the code inside the switch case that matched, the
-program exits from the switch statement. Execution doesn’t continue to
-the next case, so there is no need to explicitly break out of the switch
-at the end of each case’s code.
+你可以通过在 `for-in` 语句中提供一对名字表示每对 key-value 来迭代访问一个 dictionary 的每个元素。
 
-You use for to iterate over items in a
-dictionary by providing a pair of names to use for each key-value pair.
-
-    let = [
-        "Prime",
-    11],
-        "Fibonacci",
-    5],
-        "Square",
-    25],
+    let interestingNumbers = [
+        "Prime": [2, 3, 5, 7, 11, 13],
+        "Fibonacci": [1, 1, 2, 3, 5, 8],
+        "Square": [1, 4, 9, 16, 25],
     ]
-    var
-    for
-    interestingNumbers {
-        for {
-            if {
-                largest
+    var largest = 0
+    for (kind, numbers) in interestingNumbers {
+        for number in numbers {
+            if number > largest {
+                largest = number
             }
         }
     }
     largest
 
-Experiment
+> 实验
+>
+> 增加一个变量来在追踪最大数字的同时也追踪那个数字的类别。
 
-Add another variable to keep track of which kind of number was the
-largest, as well as what that largest number was.
+使用 `while` 来重复执行一段代码直到条件改变。
 
-Use while to repeat a block of code until a condition
-changes. The condition of a loop can be at the end instead, ensuring
-that the loop is run at least once.
+一个循环的条件也可以在循环的尾部，这样循环主体会执行至少一次。
 
-    var
-    while {
-        n
+    var n = 2
+    while n < 100 {
+        n = n * 2
     }
     n
-     
-    var
+
+    var m = 2
     do {
-        m
-    } while
+        m = m * 2
+    } while m < 100
     m
 
-You can keep an index in a loop—either by using .. to
-make a range of indexes or by writing an explicit initialization,
-condition, and increment. These two loops do the same thing:
+你可以在循环中使用一个索引 - 可以用 `..` 来创建一个索引的范围或者显式地写出初始化、条件、递增。下面的两个循环做的事是一样的：
 
-    var
-    for {
-        firstForLoop
+    var firstForLoop = 0
+    for i in 0..3 {
+        firstForLoop += i
     }
     firstForLoop
-     
-    var
-    for \<
-    3 {
-        secondForLoop
+
+    var secondForLoop = 0
+    for var i = 0; i < 3; ++i {
+        secondForLoop += 1
     }
     secondForLoop
 
-Use .. to make a range that omits its upper value, and
-use ... to make a range that includes both values.
+用 `..` 创建不包含上限值的范围，用 `...` 创建包含两端的范围。
 
-‌
+### 函数和闭包
 
-### Functions and Closures 
+用 `func` 来声明一个函数。通过在函数名后接上用括号包住的参数列表来调用一个函数。用 `->` 来分割参数名和函数的返回类型。
 
-Use func to declare a function. Call a function by
-following its name with a list of arguments in parentheses. Use
--> to separate the parameter names and types from the
-function’s return type.
-
-    func,
-    day {
-        return
-    "Hello 
+    func greet(name: String, day: String) -> String {
+        return "Hello \(name), today is \(day)."
     }
-    greet)
+    greet("Bob", "Tuesday")
 
-Experiment
+> 实验
+>
+> 去掉 `day` 参数。增加一个参数以把当天的午餐特价菜包含在问候中。
 
-Remove the day parameter. Add a parameter to include
-today’s lunch special in the greeting.
-
-Use a tuple to return multiple values from a function.
-
-    func,
-    Double) {
-        return)
-    }
-    getGasPrices()
-
-Functions can also take a variable number of arguments, collecting them
-into an array.
-
-    func...) -\>
-    Int {
-        var
-        for {
-            sum
-        }
-        return
-    }
-    sumOf()
-    sumOf)
-
-Experiment
-
-Write a function that calculates the average of its arguments.
-
-Functions can be nested. Nested functions have access to variables that
-were declared in the outer function. You can use nested functions to
-organize the code in a function that is long or complex.
-
-    func {
-        var
-        func() {
-            y
-        }
-        add()
-        return
-    }
-    returnFifteen()
-
-Functions are a first-class type. This means that a function can return
-another function as its value.
-
-    func -\>
-    Int) {
-        func) -\>
-    Int {
-            return
-        }
-        return
-    }
-    var()
-    increment)
-
-A function can take another function as one of its arguments.
-
-    func[],
-    condition {
-        for {
-            if) {
-                return
-            }
-        }
-        return
-    }
-    func) -\>
-    Bool {
-        return
-    }
-    var,
-    12]
-    hasAnyMatches)
-
-Functions are actually a special case of closures. You can write a
-closure without a name by surrounding code with braces
-( to separate the arguments and
-return type from the body.
-
-    numbers({
-        (number
-        let
-        return
-        })
-
-Experiment
-
-Rewrite the closure to return zero for all odd numbers.
-
-You have several options for writing closures more concisely. When a
-closure’s type is already known, such as the callback for a delegate,
-you can omit the type of its parameters, its return type, or both.
-Single statement closures implicitly return the value of their only
-statement.
-
-    numbers
-    \* number)
-
-You can refer to parameters by number instead of by name—this approach
-is especially useful in very short closures. A closure passed as the
-last argument to a function can appear immediately after the
-parentheses.
-
-    sort])
-    
-
-‌
-
-### Objects and Classes 
-
-Use class followed by the class’s name to create a class.
-A property declaration in a class is written the same way as a constant
-or variable declaration, except that it is in the context of a class.
-Likewise, method and function declarations are written the same way.
-
-    class {
-        var
-        func
-    {
-            return
-    "A shape with 
-        }
-    }
-
-Experiment
-
-Add a constant property with let, and add another method
-that takes an argument.
-
-Create an instance of a class by putting parentheses after the class
-name. Use dot syntax to access the properties and methods of the
-instance.
-
-    var()
-    shape
-    var =
-    shape()
-
-This version of the Shape class is missing something
-important: an initializer to set up the class when an instance is
-created. Use init to create one.
-
-    class {
-        var
-        var
-        
-        init) {
-            self
-        }
-        
-        func
-    {
-            return
-    "A shape with 
-        }
-    }
-
-Notice how self is used to distinguish the
-name argument to
-the initializer. The arguments to the initializer are passed like a
-function call when you create an instance of the class. Every property
-needs a value assigned—either in its declaration (as with
-numberOfSides) or in the initializer (as with
-name).
-
-Use deinit to create a deinitializer if you need to
-perform some cleanup before the object is deallocated.
-
-Subclasses include their superclass name after their class name,
-separated by a colon. There is no requirement for classes to subclass
-any standard root class, so you can include or omit a superclass as
-needed.
-
-Methods on a subclass that override the superclass’s implementation are
-marked with override—overriding a method by accident,
-without override, is detected by the compiler as an
-error. The compiler also detects methods with override
-that don’t actually override any method in the superclass.
-
-    class {
-        var
-        
-        init,
-    name) {
-            self
-            super)
-            numberOfSides
-        }
-        
-        func {
-            return
-        }
-        
-        override()
-    -\> String {
-            return
-    "A square with sides of length 
-        }
-    }
-    let:
-    5.2)
-    test()
-    test()
-
-Experiment
-
-Make another subclass of NamedShape called
-Circle that takes a radius and a name as arguments to its
-initializer. Implement an area and a
-describe class.
-
-In addition to simple properties that are stored, properties can have a
-getter and a setter.
-
-    class {
-        var
-        
-        init,
-    name) {
-            self
-            super)
-            numberOfSides
-        }
-        
-        var {
-        get {
-            return
-        }
-        set {
-            sideLength
-        }
-        }
-        
-        override()
-    -\> String {
-            return
-    "An equilateral triagle with sides of length 
-        }
-    }
-    var =
-    EquilateralTriangle,
-    name)
-    triangle
-    triangle
-    triangle
-
-In the setter for perimeter, the new value has the
-implicit name newValue. You can provide an explicit name
-in parentheses after set.
-
-Notice that the initializer for the EquilateralTriangle
-class has three different steps:
-
-1.  Setting the value of properties that the subclass declares.
-
-2.  Calling the superclass’s initializer.
-
-3.  Changing the value of properties defined by the superclass. Any
-    additional setup work that uses methods, getters, or setters can
-    also be done at this point.
-
-If you don’t need to compute the property but still need to provide code
-that is run before and after setting a new value, use
-willSet. For example, the class
-below ensures that the side length of its triangle is always the same as
-the side length of its square.
-
-    class {
-        var {
-        willSet {
-            square =
-    newValue
-        }
-        }
-        var {
-        willSet {
-            triangle =
-    newValue
-        }
-        }
-        init:
-    String) {
-            square:
-    size)
-            triangle =
-    EquilateralTriangle,
-    name)
-        }
-    }
-    var =
-    TriangleAndSquare:
-    "another test shape")
-    triangleAndSquare
-    triangleAndSquare
-    triangleAndSquare =
-    Square:
-    "larger square")
-    triangleAndSquare
-
-Methods on classes have one important difference from functions.
-Parameter names in functions are used only within the function, but
-parameters names in methods are also used when you call the method
-(except for the first parameter). By default, a method has the same name
-for its parameters when you call it and within the method itself. You
-can specify a second name, which is used inside the method.
-
-    class {
-        var
-        func,
-    numberOfTimes) {
-            count
-        }
-    }
-    var()
-    counter,
-    numberOfTimes)
-
-When working with optional values, you can write ? before
-operations like methods, properties, and subscripting. If the value
-before the ?, everything after the
-? is ignored and the value of the whole expression is
-nil. Otherwise, the optional value is unwrapped, and
-everything after the ? acts on the unwrapped value. In
-both cases, the value of the whole expression is an optional value.
-
-    let? =
-    Square:
-    "optional square")
-    let =
-    optionalSquare
-
-‌
-
-### Enumerations and Structures 
-
-Use enum to create an enumeration. Like classes and all
-other named types, enumerations can have methods associated with them.
-
-    enum {
-        case
-        case,
-    Five,
-    Ten
-        case
-        func
-    {
-            switch {
-            case:
-                return
-            case:
-                return
-            case:
-                return
-            case:
-                return
-            default:
-                return
-    String())
-            }
-        }
-    }
-    let
-    let()
-
-Experiment
-
-Write a function that compares two Rank values by
-comparing their raw values.
-
-In the example above, the raw value type of the enumeration is
-Int, so you only have to specify the first raw value. The
-rest of the raw values are assigned in order. You can also use strings
-or floating-point numbers as the raw type of an enumeration.
-
-Use the toRaw functions to
-convert between the raw value and the enumeration value.
-
-    if =
-    Rank) {
-        let =
-    convertedRank()
-    }
-
-The member values of an enumeration are actual values, not just another
-way of writing their raw values. In fact, in cases where there isn’t a
-meaningful raw value, you don’t have to provide one.
-
-    enum {
-        case,
-    Diamonds
-        func
-    {
-            switch {
-            case:
-                return
-            case:
-                return
-            case:
-                return
-            case:
-                return
-            }
-        }
-    }
-    let
-    let =
-    hearts()
-
-Experiment
-
-Add a color that returns
-“black” for spades and clubs, and returns “red” for hearts and diamonds.
-
-Notice the two ways that the Hearts member of the
-enumeration is referred to above: When assigning a value to the
-hearts constant, the enumeration member
-Suit.Hearts is referred to by its full name because the
-constant doesn’t have an explicit type specified. Inside the switch, the
-enumeration is referred to by the abbreviated form
-.Hearts is
-already known to be a suit. You can use the abbreviated form anytime the
-value’s type is already known.
-
-Use struct to create a structure. Structures support many
-of the same behaviors as classes, including methods and initializers.
-One of the most important differences between structures and classes is
-that structures are always copied when they are passed around in your
-code, but classes are passed by reference.
-
-    struct {
-        var
-        var
-        func
-    {
-            return
-    "The 
-        }
-    }
-    let:
-    .Three)
-    let =
-    threeOfSpades()
-
-Experiment
-
-Add a method to Card that creates a full deck of cards,
-with one card of each combination of rank and suit.
-
-An instance of an enumeration member can have values associated with the
-instance. Instances of the same enumeration member can have different
-values associated with them. You provide the associated values when you
-create the instance. Associated values and raw values are different: The
-raw value of an enumeration member is the same for all of its instances,
-and you provide the raw value when you define the enumeration.
-
-For example, consider the case of requesting the sunrise and sunset time
-from a server. The server either responds with the information or it
-responds with some error information.
-
-    enum {
-        case)
-        case)
-    }
-     
-    let =
-    ServerResponse,
-    "8:09 pm")
-    let =
-    ServerResponse)
-     
-    switch {
-    case,
-    sunset):
-        let =
-    "Sunrise is at 
-    case):
-        let =
-    "Failure...  
-    }
-
-Experiment
-
-Add a third case to ServerResponse and to the switch.
-
-Notice how the sunrise and sunset times are extracted from the
-ServerResponse value as part of matching the value
-against the switch cases.
-
-‌
-
-### Protocols and Extensions 
-
-Use protocol to declare a protocol.
-
-    protocol {
-        var {
-    get
-        mutating()
-    }
-
-Classes, enumerations, and structs can all adopt protocols.
-
-    class {
-        var =
-    "A very simple class."
-        var =
-    69105
-        func() {
-            simpleDescription +=
-    "  Now 100% adjusted."
-        }
-    }
-    var()
-    a()
-    let =
-    a
-     
-    struct
-    {
-        var =
-    "A simple structure"
-        mutating() {
-            simpleDescription
-        }
-    }
-    var()
-    b()
-    let =
-    b
-
-Experiment
-
-Write an enumeration that conforms to this protocol.
-
-Notice the use of the mutating keyword in the declaration
-of SimpleStructure to mark a method that modifies the
-structure. The declaration of SimpleClass doesn’t need
-any of its methods marked as mutating because methods on a class can
-always modify the class.
-
-Use extension to add functionality to an existing type,
-such as new methods and computed properties. You can use an extension to
-add protocol conformance to a type that is declared elsewhere, or even
-to a type that you imported from a library or framework.
-
-    extension {
-        var {
-        return
-        }
-        mutating() {
-            self
-        }
-    }
-    7
-
-Experiment
-
-Write an extension for the Double type that adds an
-absoluteValue property.
-
-You can use a protocol name just like any other named type—for example,
-to create a collection of objects that have different types but that all
-conform to a single protocol. When you work with values whose type is a
-protocol type, methods outside the protocol definition are not
-available.
-
-    let =
-    a
-    protocolValue
-    // protocolValue.anotherProperty  // Uncomment to see the error
-
-Even though the variable protocolValue has a runtime type
-of SimpleClass, the compiler treats it as the given type
-of ExampleProtocol. This means that you can’t
-accidentally access methods or properties that the class implements in
-addition to its protocol conformance.
-
-‌
-
-### Generics 
-
-Write a name inside angle brackets to make a generic function or type.
-
-    func:
-    ItemType[] {
-        var[]()
-        for {
-            result
-        }
-        return
-    }
-    repeat)
-
-You can make generic forms of functions and methods, as well as classes,
-enumerations, and structures.
-
-    // Reimplement the Swift standard library's optional type
-    enum\> {
-        case
-        case)
-    }
-    var:
-    OptionalValue
-    possibleInteger)
-
-Use where after the type name to specify a list of
-requirements—for example, to require the type to implement a protocol,
-to require two types to be the same, or to require a class to have a
-particular superclass.
-
-    func
-    where,
-    T,
-    T ==
-    U,
-    rhs {
-        for {
-            for {
-                if {
-                    return
-                }
-            }
-        }
-        return
-    }
-    anyCommonElements],
-    [3])
-
-Experiment
-
-Modify the anyCommonElements function to make a function
-that returns an array of the elements that any two sequences have in
-common.
-
-In the simple cases, you can omit where and simply write
-the protocol or class name after a colon. Writing
-<T: Equatable> is the same as writing
-<T where T: Equatable>.
