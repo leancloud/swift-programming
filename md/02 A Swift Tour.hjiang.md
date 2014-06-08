@@ -596,4 +596,53 @@ numbers.map({
 >
 > 为 `Double` 类型写一个扩展，增加一个 `absoluteValue` 属性。
 
-你可以像任何命名的类型一样使用一个协议名 -- 比如创建一个包含不同类型但服从同一协议的对象的集合。
+你可以像任何命名的类型一样使用一个协议名 -- 比如创建一个包含不同类型但服从同一协议的对象的集合。在你操作协议类型的值时，协议之外的方法是不可用的。
+
+    let protocolValue: ExampleProtocol = a
+    protocolValue.simpleDescription
+    // protocolValue.anotherProperty  // Uncomment to see the error
+
+虽然 `protocolValue` 变量的运行时类型是 `SimpleClass`, 编译器把它作为声明的 `ExampleProtocol` 类型对待。这意味着你不能访问这个类在除协议规定之外另外实现的方法和属性。
+
+### 泛型
+
+通过把类型变量写在方括号里来创建一个泛型函数或类型。
+
+    func repeat<ItemType>(item: ItemType, times: Int) -> ItemType[] {
+        var result = ItemType[]()
+        for i in 0..times {
+            result += item
+        }
+        return result
+    }
+    repeat("knock", 4)
+
+你可以创建泛型形式的函数和方法，以及类、枚举和结构。
+
+    // Reimplement the Swift standard library's optional type
+    enum OptionalValue<T> {
+        case None
+        case Some(T)
+    }
+    var possibleInteger: OptionalValue<Int> = .None
+    possibleInteger = .Some(100)
+
+在类型变量后面加上 `where` 来指定一系列的需求 -- 例如，要求类型服从某个协议，要求两个类型相同，或者要求一个类有某个特定的父类。
+
+    func anyCommonElements <T, U where T: Sequence, U: Sequence, T.GeneratorType.Element: Equatable, T.GeneratorType.Element == U.GeneratorType.Element> (lhs: T, rhs: U) -> Bool {
+        for lhsItem in lhs {
+            for rhsItem in rhs {
+                if lhsItem == rhsItem {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    anyCommonElements([1, 2, 3], [3])
+
+> 实验
+>
+> 修改 `anyCommonElements` 函数让他返回两个序的共有元素的数组。
+
+在简单情况下，你可以省略 `where` 而把协议名或类名写在冒号之后。`<T: Equatable>` 和 `<T where: T: Equatable>` 是等价的。
