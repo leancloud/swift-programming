@@ -9,8 +9,7 @@ Swift 概览
 
 通过说明如果完成各种编程任务，这篇概览将让你得到足够的信息以开始编写 Swift 程序。即使碰到有什么你还不明白的也不用担心 -- 概览中介绍的所有内容都会在本书的后面章节中有详细解释。
 
-> 建议
->
+> **建议**
 > 为得到最好的体验，请在 Xcode 中学习本章。Xcode 的 Playgrounds 让你可以在编辑代码之后马上看到结果。
 
 ### 简单的值
@@ -29,8 +28,7 @@ Swift 概览
     let implicitDouble = 70.0
     let explicitDouble: Double = 70
 
-> 实验
->
+> **实验**
 > 创建一个显示指定为 `Float` 类型的值为 `4` 的常量。
 
 值永远不会被自动转换为其他类型。如果你需要把一个值转换为其他类型，需要创建一个所需类型的实例。
@@ -39,8 +37,7 @@ Swift 概览
     let width = 94
     let widthLabel = label + String(width)
 
-> 实验
->
+> **实验**
 > 试试从最后一行里把到 `String` 的转换去掉。你看到什么错误？
 
 有一个更简单的在字符串中包含值的方法：把值写在括号中，并在括号前面加一个反斜杠（`\`）。例如：
@@ -50,8 +47,7 @@ Swift 概览
     let appleSummary = "I have \(apples) apples."
     let fruitSummary = "I have \(apples + oranges) pieces of fruit."
 
-> 实验
->
+> **实验**
 > 用 `\()` 在一个字符串中包含一个浮点数计算，并把某人的名字包含在一个问候中。
 
 用方括号（`[]`）来创建数组（array）和字典（dictionary），并通过把索引或 key 写在方括号中来访问他们的元素。
@@ -104,8 +100,7 @@ Swift 概览
         greeting = "Hello, \(name)"
     }
 
-> 实验
->
+> **实验**
 > 把 `optionalName` 改为 `nil`。你得到怎么样的问候？加一个 `else` 子句以在 `optionalName` 为 `nil` 时设定一个不同的问候语。
 
 当可选值为 `nil` 时，条件为 `false`，那么花括号里的语句就被跳过了。否则 `optionalName` 里的值就被赋值给 `let` 之后的常量，它让这个值在后面的代码块中可用。
@@ -124,8 +119,7 @@ Swift 概览
         let vegetableComment = "Everything tastes good in soup."
     }
 
-> 实验
->
+> **实验**
 > 试着把 `default` 部分去掉，你会看到什么错误？
 
 执行完匹配的 `case` 后，程序会跳出整个 `switch` 语句而不会继续执行下一个 `case`，所以不需要在每一个 `case` 的最后显式地跳出。
@@ -147,8 +141,7 @@ Swift 概览
     }
     largest
 
-> 实验
->
+> **实验**
 > 增加一个变量来在追踪最大数字的同时也追踪那个数字的类别。
 
 使用 `while` 来重复执行一段代码直到条件改变。
@@ -192,8 +185,7 @@ Swift 概览
     }
     greet("Bob", "Tuesday")
 
-> 实验
->
+> **实验**
 > 去掉 `day` 参数。增加一个参数以把当天的午餐特价菜包含在问候中。
 
 用一个 tuple 来从函数返回多个值。
@@ -215,8 +207,7 @@ Swift 概览
     sumOf()
     sumOf(42, 597, 12)
 
-> 实验
->
+> **实验**
 > 写一个计算所有参数平均值的函数。
 
 函数是可以嵌套的。嵌套的函数可以访问在外层函数声明的变量。你可以用嵌套函数来组织一个很长或很复杂的函数中的代码。
@@ -266,8 +257,7 @@ Swift 概览
         return result
         })
 
-> 实验
->
+> **实验**
 > 重写这个闭包，让它对所有奇数返回零。
 
 你有几种更简洁地表示闭包的方式。当已知一个闭包的类型时，如作为 delegate 的回调时，你可以省略参数的类型、返回值类型、或两者。单语句的闭包隐式地返回这个语句的结果。
@@ -289,8 +279,7 @@ Swift 概览
         }
     }
 
-> 实验
->
+> **实验**
 > 用 `let` 增加一个常量属性，并增加另一个接受一个参数的方法。
 
 通过把一对括号放在类名后面可以创建一个类的实例。用点操作符可以访问这个实例的属性和方法。
@@ -343,8 +332,7 @@ Swift 概览
     test.area()
     test.simpleDescription()
 
-> 实验
->
+> **实验**
 > 创建另一个叫 `Circle` 的 `NameShape` 的子类，它的构造方法接受一个半径和一个名称作为参数。实现一个 `area` 和一个 `describe` 函数。
 
 除了只是简单存储的属性外，属性也可以有 getter 和 setter。
@@ -463,8 +451,7 @@ Swift 概览
     let ace = Rank.Ace
     let aceRawValue = ace.toRaw()
 
-> 实验
->
+> **实验**
 > 写一个函数来通过比较原始值来比较两个 `Rank` 的值。
 
 在上面的例子中，因为枚举的原始值类型是 `Int`，你只需要给出第一个原始值。剩下的原始值会按顺序赋值。你也可以用字符串或浮点数作为枚举的原始值类型。
@@ -495,8 +482,7 @@ Swift 概览
     let hearts = Suit.Hearts
     let heartsDescription = hearts.simpleDescription()
 
-> 实验
->
+> **实验**
 > 为 `Suit` 增加一个 `color` 方法。"spades" 和 "clubs" 返回 "black"，"hearts" 和 "diamonds" 返回 "red"。
 
 注意引用上面枚举的 `Hearts` 成员的两种方式：但给 `hearts` 常量赋值时，使用全名 `Suit.Hearts` 引用，因为这个常数没有一个指定的类型。在 `switch` 中，使用了缩略形式 `.Hearts`，因为已经知道 `self` 是 `Suit` 类型的。在任何已经知道值的类型时都可以使用这种缩略形式。
@@ -513,8 +499,7 @@ Swift 概览
     let threeOfSpades = Card(rank: .Three, suit: .Spades)
     let threeOfSpadesDescription = threeOfSpades.simpleDescription()
 
-> 实验
->
+> **实验**
 > 给 `Card` 增加一个函数来创建全套扑克牌，包括花色和大小的所有组合。
 
 一个枚举成员的实例可以有关联的值。同一个枚举成员的不同实例可以有不同的值想关联。在创建实例的时候，你提供关联的值。这个关联的值和原始值是不同的：一个枚举成员的原始值对它的所有实例都是相同的，并且你在定义这个枚举的时候就给出了原始值。
@@ -536,8 +521,7 @@ Swift 概览
         let serverResponse = "Failure...  \(error)"
     }
 
-> 练习
->
+> **实验**
 > 给 `ServerResponse` 增加第三种情况。
 
 留意日出和日落的时间是如何作为 `switch` 分支匹配的一部分从 `ServerResponse` 的值里被提取出来的。
@@ -574,8 +558,7 @@ Swift 概览
     b.adjust()
     let bDescription = b.simpleDescription
 
-> 实验
->
+> **实验**
 > 写一个服从这个协议的枚举。
 
 注意在 `SimpleStructure` 的声明里使用了 `mutating` 关键字来标注了改变这个结构的一个方法。`SimpleClass` 的声明中不需要这样的标注，因为类的方法都可以改变它。
@@ -592,8 +575,7 @@ Swift 概览
     }
     7.simpleDescription
 
-> 实验
->
+> **实验**
 > 为 `Double` 类型写一个扩展，增加一个 `absoluteValue` 属性。
 
 你可以像任何命名的类型一样使用一个协议名 -- 比如创建一个包含不同类型但服从同一协议的对象的集合。在你操作协议类型的值时，协议之外的方法是不可用的。
@@ -641,8 +623,7 @@ Swift 概览
     }
     anyCommonElements([1, 2, 3], [3])
 
-> 实验
->
+> **实验**
 > 修改 `anyCommonElements` 函数让他返回两个序的共有元素的数组。
 
 在简单情况下，你可以省略 `where` 而把协议名或类名写在冒号之后。`<T: Equatable>` 和 `<T where: T: Equatable>` 是等价的。
