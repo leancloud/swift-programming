@@ -299,7 +299,7 @@ numbers.map({
     shape.numberOfSides = 7
     var shapeDescription = shape.simpleDescription()
 
-这个版本的 `Shape` 类还少了样重要的东西：一个在实例创建时用来做设置的构造函数。用 `init` 可以创建一个。
+这个版本的 `Shape` 类还少了样重要的东西：一个在实例创建时用来做设置的构造方法。用 `init` 可以创建一个。
 
     class NamedShape {
         var numberOfSides: Int = 0
@@ -314,4 +314,286 @@ numbers.map({
         }
     }
 
-注意 `self` 用来区分叫 `name` 的属性和传递给构造函数的 `name` 参数。构造函数的参数在创建实例时以函数参数同样的方式传递。所有的属性都需要被赋予一个值 - 要么在声明里（如 `numberOfSides`），要么在构造函数里（如 `name`）。
+注意 `self` 用来区分叫 `name` 的属性和传递给构造方法的 `name` 参数。构造方法的参数在创建实例时以函数参数同样的方式传递。所有的属性都需要被赋予一个值 - 要么在声明里（如 `numberOfSides`），要么在构造方法里（如 `name`）。
+
+如果你希望在对象被清除时进行一些清理工作，可以用 `deinit` 来创建一个析构方法。
+
+定义子类时把父类的名称放在后面，用冒号隔开。类不需要继承任何标准的根类，所以你可以根据需要包含或省略父类。
+
+子类里重载父类实现的方法需要标记 `override` -- 没有 `override` 而偶然地重载一个方法会被编译器检测为一个错误。编译器也会检测有 `override` 却并没有实际重载一个父类方法的情况。
+
+    class Square: NamedShape {
+        var sideLength: Double
+
+        init(sideLength: Double, name: String) {
+            self.sideLength = sideLength
+            super.init(name: name)
+            numberOfSides = 4
+        }
+
+        func area() ->  Double {
+            return sideLength * sideLength
+        }
+
+        override func simpleDescription() -> String {
+            return "A square with sides of length \(sideLength)."
+        }
+    }
+    let test = Square(sideLength: 5.2, name: "my test square")
+    test.area()
+    test.simpleDescription()
+
+> 实验
+>
+> 创建另一个叫 `Circle` 的 `NameShape` 的子类，它的构造方法接受一个半径和一个名称作为参数。实现一个 `area` 和一个 `describe` 函数。
+
+除了只是简单存储的属性外，属性也可以有 getter 和 setter。
+
+    class EquilateralTriangle: NamedShape {
+        var sideLength: Double = 0.0
+
+        init(sideLength: Double, name: String) {
+            self.sideLength = sideLength
+            super.init(name: name)
+            numberOfSides = 3
+        }
+
+        var perimeter: Double {
+        get {
+            return 3.0 * sideLength
+        }
+        set {
+            sideLength = newValue / 3.0
+        }
+        }
+
+        override func simpleDescription() -> String {
+            return "An equilateral triagle with sides of length \(sideLength)."
+        }
+    }
+    var triangle = EquilateralTriangle(sideLength: 3.1, name: "a triangle")
+    triangle.perimeter
+    triangle.perimeter = 9.9
+    triangle.sideLength
+
+在 perimeter 的 setter 里，参数有一个叫 `newValue` 的隐式名称。你也可以在 `set` 后的括号内提供一个显式名称。
+
+注意 `EquilateralTriangle` 类的构造方法有三个步骤：
+
+1. 设定这个子类声明的三个属性的值。
+2. 调用父类的构造方法。
+3. 改变父类里声明的属性的值。任何其他使用方法、getter、setter 的工作也可以在这里进行。
+
+如果你不需要计算出一个属性的值，但需要确保一些代码在设定一个新值之前或之后运行，使用 `willSet` 和 `didSet`。比如，下面的类会确保它的三角形的边长总是和它的方形的边长相等。
+
+    class TriangleAndSquare {
+        var triangle: EquilateralTriangle {
+        willSet {
+            square.sideLength = newValue.sideLength
+        }
+        }
+        var square: Square {
+        willSet {
+            triangle.sideLength = newValue.sideLength
+        }
+        }
+        init(size: Double, name: String) {
+            square = Square(sideLength: size, name: name)
+            triangle = EquilateralTriangle(sideLength: size, name: name)
+        }
+    }
+    var triangleAndSquare = TriangleAndSquare(size: 10, name: "another test shape")
+    triangleAndSquare.square.sideLength
+    triangleAndSquare.triangle.sideLength
+    triangleAndSquare.square = Square(sideLength: 50, name: "larger square")
+    triangleAndSquare.triangle.sideLength
+
+与函数相比，类的方法有一个重要的不同点。函数的参数名只在函数内部使用，而方法的参数名也在调用这个方法时使用（第一个参数除外）。默认情况下，一个方法的参数名在调用时和在方法内部是一样的。你也可以指定一个只在方法内部使用的名称。
+
+    class TriangleAndSquare {
+        var triangle: EquilateralTriangle {
+        willSet {
+            square.sideLength = newValue.sideLength
+        }
+        }
+        var square: Square {
+        willSet {
+            triangle.sideLength = newValue.sideLength
+        }
+        }
+        init(size: Double, name: String) {
+            square = Square(sideLength: size, name: name)
+            triangle = EquilateralTriangle(sideLength: size, name: name)
+        }
+    }
+    var triangleAndSquare = TriangleAndSquare(size: 10, name: "another test shape")
+    triangleAndSquare.square.sideLength
+    triangleAndSquare.triangle.sideLength
+    triangleAndSquare.square = Square(sideLength: 50, name: "larger square")
+    triangleAndSquare.triangle.sideLength
+
+在对待可选值时，你可以在调用方法、访问属性、下标等操作前使用 `?`。如果 `?` 之前的值为 `nil`，所有 `?` 之后的东西都会被忽略，整个表达式的值就是 `nil`。否则的话 `?` 后面的操作就作用在这个打开的值上。在这两种情况下，整个表达式的值都是可选值。
+
+    let optionalSquare: Square? = Square(sideLength: 2.5, name: "optional square")
+    let sideLength = optionalSquare?.sideLength
+
+### 枚举和结构
+
+用 `enum` 来创建一个枚举。就像类和其他命名的类型一样，枚举可以有相应的方法。
+
+    enum Rank: Int {
+        case Ace = 1
+        case Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten
+        case Jack, Queen, King
+        func simpleDescription() -> String {
+            switch self {
+            case .Ace:
+                return "ace"
+            case .Jack:
+                return "jack"
+            case .Queen:
+                return "queen"
+            case .King:
+                return "king"
+            default:
+                return String(self.toRaw())
+            }
+        }
+    }
+    let ace = Rank.Ace
+    let aceRawValue = ace.toRaw()
+
+> 实验
+>
+> 写一个函数来通过比较原始值来比较两个 `Rank` 的值。
+
+在上面的例子中，因为枚举的原始值类型是 `Int`，你只需要给出第一个原始值。剩下的原始值会按顺序赋值。你也可以用字符串或浮点数作为枚举的原始值类型。
+
+使用 `toRaw` 和 `fromRaw` 方法来在原始值和枚举值之间转换。
+
+    if let convertedRank = Rank.fromRaw(3) {
+        let threeDescription = convertedRank.simpleDescription()
+    }
+
+枚举的成员值是真实的值，而并不只是原始值的别称。事实上，但不存在有意义的原始值时，你不需要提供原始值。
+
+    enum Suit {
+        case Spades, Hearts, Diamonds, Clubs
+        func simpleDescription() -> String {
+            switch self {
+            case .Spades:
+                return "spades"
+            case .Hearts:
+                return "hearts"
+            case .Diamonds:
+                return "diamonds"
+            case .Clubs:
+                return "clubs"
+            }
+        }
+    }
+    let hearts = Suit.Hearts
+    let heartsDescription = hearts.simpleDescription()
+
+> 实验
+>
+> 为 `Suit` 增加一个 `color` 方法。"spades" 和 "clubs" 返回 "black"，"hearts" 和 "diamonds" 返回 "red"。
+
+注意引用上面枚举的 `Hearts` 成员的两种方式：但给 `hearts` 常量赋值时，使用全名 `Suit.Hearts` 引用，因为这个常数没有一个指定的类型。在 `switch` 中，使用了缩略形式 `.Hearts`，因为已经知道 `self` 是 `Suit` 类型的。在任何已经知道值的类型时都可以使用这种缩略形式。
+
+使用 `struct` 来创建一个结构。结构支持类的很多行为和特性，包括方法、构造方法等等。结构和类的最重要差别之一是当结构在程序中传递时总是被复制，而类被传递时总是按引用传递。
+
+    struct Card {
+        var rank: Rank
+        var suit: Suit
+        func simpleDescription() -> String {
+            return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+        }
+    }
+    let threeOfSpades = Card(rank: .Three, suit: .Spades)
+    let threeOfSpadesDescription = threeOfSpades.simpleDescription()
+
+> 实验
+>
+> 给 `Card` 增加一个函数来创建全套扑克牌，包括花色和大小的所有组合。
+
+一个枚举成员的实例可以有关联的值。同一个枚举成员的不同实例可以有不同的值想关联。在创建实例的时候，你提供关联的值。这个关联的值和原始值是不同的：一个枚举成员的原始值对它的所有实例都是相同的，并且你在定义这个枚举的时候就给出了原始值。
+
+举个例子，假设你要从服务器读取日出和日落的时间。服务器要么返回你要的信息，要么返回一些错误。
+
+    enum ServerResponse {
+        case Result(String, String)
+        case Error(String)
+    }
+
+    let success = ServerResponse.Result("6:00 am", "8:09 pm")
+    let failure = ServerResponse.Error("Out of cheese.")
+
+    switch success {
+    case let .Result(sunrise, sunset):
+        let serverResponse = "Sunrise is at \(sunrise) and sunset is at \(sunset)."
+    case let .Error(error):
+        let serverResponse = "Failure...  \(error)"
+    }
+
+> 练习
+>
+> 给 `ServerResponse` 增加第三种情况。
+
+留意日出和日落的时间是如何作为 `switch` 分支匹配的一部分从 `ServerResponse` 的值里被提取出来的。
+
+### 协议和扩展
+
+使用 `protocol` 来声明一个协议。
+
+    protocol ExampleProtocol {
+        var simpleDescription: String { get }
+        mutating func adjust()
+    }
+
+类、枚举和结构都可以服从协议。
+
+    class SimpleClass: ExampleProtocol {
+        var simpleDescription: String = "A very simple class."
+        var anotherProperty: Int = 69105
+        func adjust() {
+            simpleDescription += "  Now 100% adjusted."
+        }
+    }
+    var a = SimpleClass()
+    a.adjust()
+    let aDescription = a.simpleDescription
+
+    struct SimpleStructure: ExampleProtocol {
+        var simpleDescription: String = "A simple structure"
+        mutating func adjust() {
+            simpleDescription += " (adjusted)"
+        }
+    }
+    var b = SimpleStructure()
+    b.adjust()
+    let bDescription = b.simpleDescription
+
+> 实验
+>
+> 写一个服从这个协议的枚举。
+
+注意在 `SimpleStructure` 的声明里使用了 `mutating` 关键字来标注了改变这个结构的一个方法。`SimpleClass` 的声明中不需要这样的标注，因为类的方法都可以改变它。
+
+使用 `extension`（扩展）来为现有类型增加新的功能，比如新的方法和计算出的属性。你也可以用扩展来为一个在其他地方声明的类型（甚至是一个从第三方库或者框架导入的类型）增加对协议的服从性。
+
+    extension Int: ExampleProtocol {
+        var simpleDescription: String {
+        return "The number \(self)"
+        }
+        mutating func adjust() {
+            self += 42
+        }
+    }
+    7.simpleDescription
+
+> 实验
+>
+> 为 `Double` 类型写一个扩展，增加一个 `absoluteValue` 属性。
+
+你可以像任何命名的类型一样使用一个协议名 -- 比如创建一个包含不同类型但服从同一协议的对象的集合。
