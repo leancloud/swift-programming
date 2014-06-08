@@ -260,11 +260,11 @@ Swift 概览
 
 函数事实上是闭包（closure）的一种特殊形式。可以在花括号（`{}`）之间包含代码来构造一个匿名的闭包。使用 `in` 把参数和返回值类型与主体分隔开。
 
-numbers.map({
-    (number: Int) -> Int in
-    let result = 3 * number
-    return result
-    })
+    numbers.map({
+        (number: Int) -> Int in
+        let result = 3 * number
+        return result
+        })
 
 > 实验
 >
