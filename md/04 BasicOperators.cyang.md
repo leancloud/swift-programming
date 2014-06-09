@@ -1,5 +1,5 @@
-基本运算符
----------------
+基础运算符
+------------
 
 *运算符*是一种可以检查、修改或结合数值的特殊符号或短语。例如，加法运算符可以将两个数字相加（ `let i = 1 + 2` ）。
 更复杂的例子还包括逻辑与运算符 `&&`（ `if enteredDoorCode && passedRetinaScan` ）以及可以简化增量操作的运算符 `++i`。
@@ -7,7 +7,7 @@
 Swift 支持大多数标准 C 运算符，并增强了避免常见编码错误的能力。赋值运算符（ `=` ）没有返回值，这可以防止误用（ `=` ）和等于符号（ `==` ）。
 算数运算符（ `+` ，`*` ）会检测且禁止数值溢出，避免因处理数据不当而导致的意外结果。你可以使用 Swift 的溢出运算符来自定义溢出行为，详情请参考 [溢出运算符](AdvancedOperators.xhtml#TP40014097-CH27-XID_37)。
 
-Swift 并不像 C 那样允许你对浮点数做余数运算。它提供了两种 C 不曾拥有的范围运算符（ `a..b` ），这样的运算符可以非常方便地表示数据范围。
+Swift 并不像 C 那样允许你对浮点数做求余运算。它提供了两种 C 不曾拥有的范围运算符（ `a..b` ），这样的运算符可以非常方便地表示数据范围。
 
 本章将会详细解读 Swift 的常用运算符。[高级运算符](AdvancedOperators.xhtml) 则涵盖了 Swift 的高级运算符，它会告诉你如何定义你自己的运算符，并为你自己的类型实现标准运算符。
 ‌
@@ -29,382 +29,269 @@ and its two operands are the values 1 and 2.
 运算符所影响的数值叫做*操作数*。在表达式 `1 + 2` 中，`+` 就是一个二元运算符，他的两个操作数就是数值 `1` 和 `2` 。
 ‌
 
-### Assignment Operator 
+### 赋值运算符
 
-The *assignment operator* (a = b) initializes or updates
-the value of a:
+*赋值运算符*（ `a = b` ）可用于初始化或更改 `a` 的值。
+	
+	let b = 10
+	var a = 5
+	a = b
+	// 现在 a 等于 10
+    
+如果赋值符号的右边是拥有多个数值的元组，那么这个元组的各个元素可以一次性分解为多个常量或变量：
 
-    let
-    var
-    a
-    // a is now equal to 10
+	let (x, y) = (1, 2)
+	// x 等于 1，y 等于 2
 
-If the right side of the assignment is a tuple with multiple values, its
-elements can be decomposed into multiple constants or variables at once:
+与 C 和 Objective-C 的赋值运算符不同，Swift 的赋值运算符并没有返回值。下面的语句是非法的：
+	
+	if x = y {
+		// 该语句非法，因为 x = y 不会返回任何值
+	}
 
-    let)
-    // x is equal to 1, and y is equal to 2
+当你想要使用等于符号（ `==` ）时，Swift的这个特性（赋值运算符无返回值）使得赋值运算符（ `=` ）很难被意外使用，并因此而带来灾难性的后果。通过将 `if x = y` 置为非法语句，Swift 可以帮助你的代码避免类似的错误。
 
-Unlike the assignment operator in C and Objective-C, the assignment
-operator in Swift does not itself return a value. The following
-statement is not valid:
 
-    if {
-        // this is not valid, because x = y does not return a value
-    }
+### 算数运算符
 
-This feature prevents the assignment operator (=) from
-being used by accident when the equal to operator (==) is
-actually intended. By making if x = y invalid, Swift
-helps you to avoid these kinds of errors in your code.
+Swift 支持所有类型的四则*算数运算符*：
 
+-   加法（ `+` ）
+
+-   减法（ `-` ）
+
+-   乘法（ `*` ）
+
+-   除法（ `/` ）
+	
+```
+1 + 2 		// 等于 3
+5 - 3 		// 等于 2
+2 * 3 		// 等于 6
+10.0 / 2.5  // 等于4.0
+```
+
+与 C 和 Objective-C 的算数运算符不同，Swift 的算数运算符默认禁止数值溢出。你可以使用 Swift 的溢出运算符（例如 `a &+ b`）来选择数值溢出相关行为。详情参考 [溢出运算符](AdvancedOperators.xhtml#TP40014097-CH27-XID_37)。
+
+加法运算符也支持字符串连接：
+
+	"hello, " + "world" // 等于 “hello, world”
+
+两个字符，或者一个字符与一个字符串，都可以相加构造为一个新的字符串：
+	
+	let dog: Character = "🐶"
+	let cow: Character = "🐮"
+	“let dogCow = dog + cow”
+	// dogCow 等于 "🐶🐮"
+
+详情请参考 [字符串与字符连接](StringsAndCharacters.xhtml#TP40014097-CH7-XID_379)。
 ‌
 
-### Arithmetic Operators 
+### 求余运算符
 
-Swift supports the four standard *arithmetic operators* for all number
-types:
+*余数*的定义是这样的：b 减去 b 可以容纳的 a 的最大倍数，例如 `7 % 3 = 7- (3 * 2) = 1`。求余运算符（ `a % b` ）就是用来计算余数的运算符。
 
--   Addition (+)
+> **注意**
+>
+> 在其他语言中，求余运算符（ `%` ）也叫做*取模运算符*。而从严格意义上讲，Swift 的求余运算符对负数是做求余操作，而不是取模操作。
 
--   Subtraction (-)
+下面是求余运算符的工作原理。计算 `9 % 4`，首先你需要计算出 9 能容纳多少个 4：
 
--   Multiplication (*)
+//////image//////////
 
--   Division (/)
+9 能容纳两个 4，余数应该为 1（橙色部分）。
 
-    1
-    5
-    2
-    10.0
+在 Swift 中，上面的运算可以这样表示:
+	
+	9 % 4 // 等于 1
 
-Unlike the arithmetic operators in C and Objective-C, the Swift
-arithmetic operators do not allow values to overflow by default. You can
-opt in to value overflow behavior by using Swift’s overflow operators
-(such as a &+ b). See [Overflow
-Operators](AdvancedOperators.xhtml#TP40014097-CH27-XID_37).
+为了计算 `a % b` 的结果，`%` 运算符需要解如下方程，并输出 remainder：
 
-The addition operator is also supported for String
-concatenation:
+```
+a = (b * some multiplier) + remainder
+```
+其中 some mutiplier 是 b 的最大倍数。
 
-    "hello, "
-    // equals "hello, world"
+把 9 和 4 代入上述方程，可以得到：
 
-Two Character
-value and one String value, can be added together to make
-a new String value:
-
-    let
-    let
-    let
-    // dogCow is equal to "🐶🐮"
-
-See also [Concatenating Strings and
-Characters](StringsAndCharacters.xhtml#TP40014097-CH7-XID_379).
-
-‌
-
-### Remainder Operator 
-
-The *remainder operator* (a % b) works out how many
-multiples of b and
-returns the value that is left over (known as the *remainder*).
-
-Note
-
-The remainder operator (%) is also known as a *modulo
-operator* in other languages. However, its behavior in Swift for
-negative numbers means that it is, strictly speaking, a remainder rather
-than a modulo operation.
-
-Here’s how the remainder operator works. To calculate
-9 % 4s will
-fit inside 9:
-
-![image: ../Art/remainderInteger\_2x.png](Art/remainderInteger_2x.png)
-
-You can fit two 4, and the
-remainder is 1 (shown in orange).
-
-In Swift, this would be written as:
-
-    9
-
-To determine the answer for a % b
-operator calculates the following equation and returns
-remainder as its output:
-
-a) +
-remainder
-
-where some multiplier is the largest number of multiples
-of b.
-
-Inserting 9 into this equation
-yields:
-
-9) +
-1
-
+```
+9 = (4 * 2) + 1
+```
 The same method is applied when calculating the remainder for a negative
 value of a:
 
     -9
 
-Inserting -9 into the equation
-yields:
+同样的方法可以用来计算某个负数的余数：
 
--9) +
--1
+```
+-9 % 4 // 等于 -1
+```
+把 -9 和 4 代入前文提到的方程，可以得到：
 
-giving a remainder value of -1.
+```
+-9 = (4 * -2) + -1
+```
 
-The sign of b is ignored for negative values of
-b and
-a % -b always give the same answer.
+最终计算出余数为 -1。
 
+在求余计算中，负数 b 的符号会被忽略。也就是说，`a % b` 和 `a % -b` 会得到相同的结果。
 ‌
 
-### Floating-Point Remainder Calculations 
+### 浮点求余运算
 
-Unlike the remainder operator in C and Objective-C, Swift’s remainder
-operator can also operate on floating-point numbers:
+与 C 和 Objective-C 的求余运算符不同，Swift 的求余运算符可以作用于浮点数：
 
-    8
+```
+8 % 2.5 // 等于 0.5
+```
 
-In this example, 8 equals
-3, so the
-remainder operator returns a Double value of
-0.5.
+‌在上面这个例子中，8 除以 2.5 等于 3，余数为 0.5，所以求余运算符返回一个 `Double` 值 0.5。
+/////image/////
 
-![image: ../Art/remainderFloat\_2x.png](Art/remainderFloat_2x.png)
+### 增量与减量运算符
+    
+和 C 类似，Swift 也提供了可以便捷的对某个数字做加一或减一操作的运算符：*增量运算符*和*减量运算符*。你可以使用者两个运算符对整型或浮点型变量做操作：
+	
+	var i = 0
+	++i		 // 现在 i 等于 1
 
+每当你调用 `++i`，i 的值就会加一。本质上讲，`++i` 是 `i = i + 1`的缩写。类似的，`--i` 可以作为 `i = i - 1` 的缩写。
+
+`++` 和 `--` 这两个运算符可以用作前缀或后缀运算符。若想让 i 加一，`i++` 和 `++i`都是合法的表达式。同理，`i--` 和 `--i` 都会导致 i 减一。
+    
+需要注意的是，这两个运算符不仅会修改 `i` 的数值，还会产生返回值。如果只想修改存储在 `i` 中的数值，你可以忽略返回值。然而，如果要使用返回值，你需要根据如下规则来区分前缀与后缀运算符：
+
+-	如果运算符位于变量之前，那么先修改变量，后返回数值。
+-	如果运算符位于变量之后，那么先返回值，后修改变量。
+    
+例如：
+
+    var a = 0
+    let b = ++a
+    // a 和 b 现在等于 1
+    let c = a++
+    // a 现在等于 2，但是 c 被赋值为 a 增长之前的值:1
+
+在上面的例子中，`let b = ++a` 先对 a 加一，然后返回它的值。这就是为什么 a 和 b 都等于新的值 1。
+
+然而，`let c = a++` 在返回值之后对 a 加一。这意味着 c 获得旧值 1，然后 a 被更改为 2。
+
+‌除非你需要利用 `i++` 的特殊行为，否则在任何场景都推荐使用 `++i` 和 `--i`。因为后者总是能返回你所期望的数值，也就是对旧值加一或减一之后的结果。
+
+### 一元负运算符
+
+数字的符号可以通过前缀符号 `-` 来做切换，这也就是所谓的*一元负运算符*：
+	
+	let three = 3
+	let minusThree = -three         // minusThree 等于 -3
+	let plusThree = -minusThree     // plusThree 等于 3
+
+一元负运算符（ `-` ）直接位于操作数的前面，中间不能有空格。
 ‌
 
-### Increment and Decrement Operators 
+### 一元加运算符
 
-Like C, Swift provides an *increment operator* (++) and a
-*decrement operator* (--) as a shortcut to increase or
-decrease the value of a numeric variable by 1. You can
-use these operators with variables of any integer or floating-point
-type.
+*一元加运算符*直接返回操作数的值，不对其做任何修改：
 
-    var
-    ++i
+	let minusSix = -6
+	let alsoMinusSix = +minusSix  // alsoMinusSix 等于 -6
+		
+‌尽管一元加运算符不会对数值做任何修改，你仍然可以使用它来提高代码可读性。比如正数与负数通过两种不同的运算符来达到一种"对称"的视觉效果。
 
-Each time you call ++i is
-increased by 1 is
-shorthand for saying i = i + 1. Likewise,
---i can be used as shorthand for
-i = i - 1.
+### 复合赋值运算符 
+    
+与 C 类似，Swift 提供*复合赋值运算符*来结合赋值（ `=` ）与其他操作。下面是一个*加法赋值运算符*（ `+=` ）的例子：
+	var a = 1
+	a += 2
+	// 现在 a 等于 3
 
-The ++ symbols can be used as
-prefix operators or as postfix operators. ++i and
-i++ are both valid ways to increase the value of
-i and
-i-- are both valid ways to decrease the value of
-i.
+表达式 `a += 2` 是 `a = a + 2` 的缩写。实际上，把加法和赋值运算符结合到一起会同时执行两个任务。
 
-Note that these operators modify i and also return a
-value. If you only want to increment or decrement the value stored in
-i, you can ignore the returned value. However, if you
-*do* use the returned value, it will be different based on whether you
-used the prefix or postfix version of the operator, according to the
-following rules:
+> 注意
+>
+> 复合赋值运算符没有返回值。例如，类似 `let b = a += 2` 这样的代码是非法的。它和前面提到的
+> 增量或减量运算符有着不一样的行为。
 
--   If the operator is written *before* the variable, it increments the
-    variable *before* returning its value.
-
--   If the operator is written *after* the variable, it increments the
-    variable *after* returning its value.
-
-For example:
-
-    var
-    let
-    // a and b are now both equal to 1
-    let++
-    // a is now equal to 2, but c has been set to the pre-increment value of 1
-
-In the example above, let b = ++a increments
-a *before* returning its value. This is why both
-a are equal to to the new value of
-1.
-
-However, let c = a++ *after*
-returning its value. This means that c gets the old value
-of 1 is then updated to equal
-2.
-
-Unless you need the specific behavior of i++, it is
-recommended that you use ++i in
-all cases, because they have the typical expected behavior of modifying
-i and returning the result.
-
+有关复合赋值运算符的完整列表，可以参考 [表达式](Expressions.xhtml)。
 ‌
 
-### Unary Minus Operator 
+### 比较运算符
 
-The sign of a numeric value can be toggled using a prefixed
--, known as the *unary minus operator*:
+Swift 支持所有标准 C *比较运算符*：
 
-    let
-    let
-    // minusThree equals -3
-    let
-    // plusThree equals 3, or "minus minus three"
+-	等于（ `a == b` ）
+-	不等于（ `a != b` ）
+-	大于（ `a > b` ）
+-	小于（ `a < b` ）
+-	大于或等于（ `a >= b` ）
+-	小于或等于（ `a <= b` ）
 
-The unary minus operator (-) is prepended directly before
-the value it operates on, without any white space.
 
+> 注意
+>
+> Swift 还提供了两种用于测试两个对象引用是否指向同一个对象实例的*标示运算符*（ `===` 和 `!==`）。更多信息，可以参考[对象与结构体](lassesAndStructures.xhtml)
+
+每个比较运算符返回标示某个表达式是否为 true 的布尔值:
+
+```
+1 == 1 	// true，因为 1 等于 1
+2 != 1  // true，因为 2 不等于 1
+2 > 1	// true，因为 2 大于 1
+1 < 2	// true，因为 1 小于 2
+1 >= 1	// true，因为 1 大于或等于 1
+2 <= 1	// false，因为 2 小于或等于 1
+```	
+    
+比较运算符经常用在条件语句中，比如 if 语句：
+	
+	let name = "world"
+	if name == "world" {
+		println("hello, world")
+	} else {
+		println("I'm sorry \(name), but I don't recognize you")
+	}
+	// 因为 name 确实等于 "wolrd"，所有输出 "hello, world"
+
+更多关于 if 语句的信息，参考[控制流](ControlFlow.xhtml)
 ‌
 
-### Unary Plus Operator 
+### 三元条件运算符 
 
-The *unary plus operator* (+) simply returns the value it
-operates on, without any change:
+*三元条件运算符*是一种特殊的运算符，拥有三个部分，通常以这样的形式存在：`question ? answer1 : answer2`。它根据 `question` 是否为 true 来决定到底对哪个表达式求值。如果 `question` 为 true，那么执行 `answer1` 并返回其值，否则执行 `answer1` 并返回其值。
 
-    let
-    let
-    // alsoMinusSix equals -6
+三元条件运算符是下面代码的缩写:
 
-Although the unary plus operator doesn’t actually do anything, you can
-use it to provide symmetry in your code for positive numbers when also
-using the unary minus operator for negative numbers.
-
-‌
-
-### Compound Assignment Operators 
-
-Like C, Swift provides *compound assignment operators* that combine
-assignment (=) with another operation. One example is the
-*addition assignment operator* (+=):
-
-    var
-    a
-    // a is now equal to 3
-
-The expression a += 2 is shorthand for
-a = a + 2. Effectively, the addition and the assignment
-are combined into one operator that performs both tasks at the same
-time.
-
-Note
-
-The compound assignment operators do not return a value. You cannot
-write let b = a += 2, for example. This behavior is
-different from the increment and decrement operators mentioned above.
-
-A complete list of compound assignment operators can be found in
-[Expressions](Expressions.xhtml).
-
-‌
-
-### Comparison Operators 
-
-Swift supports all standard C *comparison operators*:
-
--   Equal to (a == b)
-
--   Not equal to (a != b)
-
--   Greater than (a > b)
-
--   Less than (a < b)
-
--   Greater than or equal to (a >= b)
-
--   Less than or equal to (a <= b)
-
-Note
-
-Swift also provides two *identity operators* (=== and
-!==), which you use to test whether two object references
-both refer to the same object instance. For more information, see
-[Classes and Structures](ClassesAndStructures.xhtml).
-
-Each of the comparison operators returns a Bool value to
-indicate whether or not the statement is true:
-
-    1
-    2
-    // true, because 2 is not equal to 1
-    2
-    // true, because 2 is greater than 1
-    1
-    1
-    // true, because 1 is greater than or equal to 1
-    2
-    // false, because 2 is not less than or equal to 1
-
-Comparison operators are often used in conditional statements, such as
-the if statement:
-
-    let
-    if {
-        println)
+    if question {
+    	answer1
     } else {
-        println)
-    }
-    // prints "hello, world", because name is indeed equal to "world"
-
-For more on the if statement, see [Control
-Flow](ControlFlow.xhtml).
-
-‌
-
-### Ternary Conditional Operator 
-
-The *ternary conditional operator* is a special operator with three
-parts, which takes the form question ? answer1 : answer2.
-It is a shortcut for evaluating one of two expressions based on whether
-question is
-true, it evaluates answer1 and returns its value;
-otherwise, it evaluates answer2 and returns its value.
-
-The ternary conditional operator is shorthand for the code below:
-
-    if {
-        answer1
-    } else {
-        answer2
+    	answer2
     }
 
-Here’s an example, which calculates the pixel height for a table row.
-The row height should be 50 pixels taller than the content height if the
-row has a header, and 20 pixels taller if the row doesn’t have a header:
 
-    let
-    let
-    let +
-    (hasHeader)
-    // rowHeight is equal to 90
+这是一个计算表格行像素高度的例子。如果该行有 header，那么行高应该比内容高度大 50 个像素，否则应该大 20 个像素：
+	
+	let contentHeight = 40
+	let hasHeader = true
+	let rowHeight = contentHeight + (hasHeader ? 50 : 20)
+	// rowHeight 等于 90
+    
+前面的代码是下面这个例子的缩写：
+	
+	let contentHeight = 40
+	let hasHeader = true
+	var rowHeight = contentHeight 
+	if hasHeader {
+    	rowHeight = rowHeight + 50
+	} else {
+    	rowHeight = rowHeight + 20
+	}
+	// rowHeight 等于 90
+   
 
-The preceding example is shorthand for the code below:
+第一个例子使用了三元条件运算符，意味着可以使用一行代码来为 rowHeight 设置正确的值。这样就比第二个例子更简洁。因为 rowHeight 的值在 if 语句的作用域里面不会被修改，根本不必将 rowHeight 声明为一个变量。
 
-    let
-    let
-    var
-    if {
-        rowHeight
-    } else {
-        rowHeight
-    }
-    // rowHeight is equal to 90
-
-The first example’s use of the ternary conditional operator means that
-rowHeight can be set to the correct value on a single
-line of code. This is more concise than the second example, and removes
-the need for rowHeight to be a variable, because its
-value does not need to be modified within an if
-statement.
-
-The ternary conditional operator provides an efficient shorthand for
-deciding which of two expressions to consider. Use the ternary
-conditional operator with care, however. Its conciseness can lead to
-hard-to-read code if overused. Avoid combining multiple instances of the
-ternary conditional operator into one compound statement.
-
+三元条件运算符提供了一种高效的缩写来决定到底应该从两个表达式中选择哪一个求值。然而，你仍然需要谨慎使用三元条件运算符。如果过度使用，它自身的简洁性可能会降低代码的可读性。因此，应该尽可能避免把多个三元条件运算符组合到一个复合表达式中。
 ‌
 
 ### Range Operators 
