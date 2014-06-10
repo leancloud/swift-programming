@@ -294,217 +294,137 @@ Swift 支持所有标准 C *比较运算符*：
 三元条件运算符提供了一种高效的缩写来决定到底应该从两个表达式中选择哪一个求值。然而，你仍然需要谨慎使用三元条件运算符。如果过度使用，它自身的简洁性可能会降低代码的可读性。因此，应该尽可能避免把多个三元条件运算符组合到一个复合表达式中。
 ‌
 
-### Range Operators 
+### 范围运算符 
 
-Swift includes two *range operators*, which are shortcuts for expressing
-a range of values.
-
+Swift 包含两种*范围运算符*。使用范围运算符，可以非常简洁地表示数值范围。
 ‌
 
-### Closed Range Operator 
+### 封闭范围运算符
 
-The *closed range operator* (a...b) defines a range that
-runs from a, and includes the values
-a.
+*封闭范围运算符*（ `a...b` ）定义了一个由 a 到 b，并且包含 a 和 b 的范围。
 
-The closed range operator is useful when iterating over a range in which
-you want all of the values to be used, such as with a
-for loop:
+当你想要遍历某个范围内所有的元素，封闭范围运算符就可以派上用场，例如 `for` 循环：
+	
+	for index in 1...5 {
+    	println("\(index) times 5 is \(index * 5)")
+	}
+	// 1 times 5 is 5
+	// 2 times 5 is 10
+	// 3 times 5 is 15
+	// 4 times 5 is 20
+	// 5 times 5 is 25
 
-    for {
-        println
-    \* 5)
-    }
-    // 1 times 5 is 5
-    // 2 times 5 is 10
-    // 3 times 5 is 15
-    // 4 times 5 is 20
-    // 5 times 5 is 25
+更多有关 `for-in` 循环的信息，可以参考[控制流](ControlFlow.xhtml)。
 
-For more on for loops, see [Control
-Flow](ControlFlow.xhtml).
 
-‌
+### 半闭范围运算符
 
-### Half-Closed Range Operator 
+*半闭范围运算符*（ `a..b` ）定义了一个由 a 到 b，但不包含 b 的范围。之所以称作*半闭*，是因为它包含起始元素，但不包含结束元素。
 
-The *half-closed range operator* (a..b) defines a range
-that runs from a, but does not
-include b. It is said to be *half-closed* because it
-contains its first value, but not its final value.
+当你使用 0-based 列表比如数组时，半闭范围运算符就显得特别有用。可以用它来计数至列表长度（不包含这个上限值）：
 
-Half-closed ranges are particularly useful when you work with zero-based
-lists such as arrays, where it is useful to count up to (but not
-including) the length of the list:
+	et names = ["Anna", "Alex", "Brian", "Jack"]
+	let count = names.count
+	for i in 0..count {
+    	println("Person \(i + 1) is called \(names[i])")
+	}
+	// Person 1 is called Anna
+	// Person 2 is called Alex
+	// Person 3 is called Brian
+	// Person 4 is called Jack
 
-    let,
-    "Brian"]
-    let
-    for {
-        println +
-    1)
-    }
-    // Person 1 is called Anna
-    // Person 2 is called Alex
-    // Person 3 is called Brian
-    // Person 4 is called Jack
+‌需要说明的是，数组包含四个元素，由于 `0..count`是半闭范围，故只会计数到 3（数组最后一个元素的索引）。更多有关数组的信息，可以参考[数组](CollectionTypes.xhtml#TP40014097-CH8-XID_135)
 
-Note that the array contains four items, but 0..count
-only counts as far as 3 (the index of the last item in
-the array), because it is a half-closed range. For more on arrays, see
-[Arrays](CollectionTypes.xhtml#TP40014097-CH8-XID_135).
 
-‌
+### 逻辑运算符
 
-### Logical Operators 
+*逻辑运算符*用于修改或合并布尔值：true 和 false。Swift 支持三种标准逻辑运算符：
+-	逻辑非（ `!a` ）
+-	逻辑与（ `a && b` ）
+-	逻辑或（ `a || b` ）
 
-*Logical operators* modify or combine the Boolean logic values
-true. Swift supports the three
-standard logical operators found in C-based languages:
-
--   Logical NOT (!a)
-
--   Logical AND (a && b)
-
--   Logical OR (a || b)
-
-‌
 
 ### Logical NOT Operator 
 
-The *logical NOT operator* (!a) inverts a Boolean value
-so that true, and
-false.
+*逻辑非运算符*（!a）把布尔值反转，也就是说 true 会变成 false，false 会变成 true。
 
-The logical NOT operator is a prefix operator, and appears immediately
-before the value it operates on, without any white space. It can be read
-as “not a”, as seen in the following example:
+逻辑非运算符是一种前缀运算符，其位于操作数的头部，且两者直接不能有空格。`!a` 可以发音为 "not a"，例子如下：
+	
+	let allowedEntry = false
+	if !allowedEntry {
+    	println("ACCESS DENIED")
+	}
+	// prints "ACCESS DENIED"
 
-    let
-    if {
-        println)
-    }
-    // prints "ACCESS DENIED"
+`if !allowedEntry` 可以读作 “if not allowed entry”。紧接其后的那行代码只会在 “not allowed entry” 为 true 的时候才会执行；也就意味着allowedEntry 为 false。
 
-The phrase if !allowedEntry can be read as “if not
-allowed entry.” The subsequent line is only executed if “not allowed
-entry” is true; that is, if allowedEntry is
-false.
+就像上面这个例子一样，谨慎命名布尔常量或变量除了可以保证代码的可读性和简洁度，还能避免双重否定或其他一些混乱的逻辑语句。
+‌
 
-As in this example, careful choice of Boolean constant and variable
-names can help to keep code readable and concise, while avoiding double
-negatives or confusing logic statements.
+### 逻辑与运算符
+
+由*逻辑与运算符*（ `a && b` ）构造的逻辑表达式，只有当所有布尔值都为 true 的时候，整个表达式的值才为 true。
+
+如果其中某个布尔值为 false，那么整个表达式的值都为 false。实际上，如果*第一个*值为 false，第二个值将会被忽略，因为它不可能再更改整个表达式的真值。这也就是所谓的*短路求值*（short-circuit evaluation）。
+
+这个例子测试两个布尔值，当且仅当两个个值都为 true 才允许访问：
+	
+	let enteredDoorCode = true
+	let passedRetinaScan = false
+	if enteredDoorCode && passedRetinaScan {
+    	println("Welcome!")
+	} else {
+    	println("ACCESS DENIED")
+	}
+	// 输出 "ACCESS DENIED"
+‌
+
+### 逻辑或运算符 
+
+*逻辑或运算符*（ `a || b` ）是由两个邻接的管道符号构成的中缀运算符。用它来构造的逻辑表达式，只要其中一个布尔值为 true，整个表达式的值即可为 true。
+
+同逻辑与运算符类似，逻辑或运算符也遵循短路求值的规则。如果逻辑或运算符左侧的值为 true，那么就不必再对右边求值。因为右边这个值已经无法对整个表达式的真值产生任何影响。
+
+接下来的例子中，第一个布尔值（hasDoorKey）为false，但是第二个布尔值（knowsOverridePassword）为 true。因为其中有一个值为 true，整个表达式的真值为 true，故允许访问：
+	
+	let hasDoorKey = false
+	let knowsOverridePassword = true
+	if hasDoorKey || knowsOverridePassword {
+    	println("Welcome!")
+	} else {
+    	println("ACCESS DENIED")
+	}
+	// 输出 "Welcome!"
+‌
+
+### 合并逻辑运算符
+
+你可以通过合并多个逻辑运算符来构造更长的复合表达式：
+	
+	if enteredDoorCode && passedRetinaScan || hasDoorKey || knowsOverridePassword {
+    	println("Welcome!")
+	} else {
+    	println("ACCESS DENIED")
+	}
+	// 输出 "Welcome!"
+    
+这个例子使用多个 `&&` 和 `||` 运算符来构造更长的复合表达式。然而，`&&` 和 `||` 运算符只能作用于两个布尔值，因此这实际上是三个较短的表达式链接而成的。可以换一种表达方式：
+
+如果我们输入了正确的门牌号并且通过了视网膜扫描；或者如果我们拥有有效的钥匙；抑或如果我们知道紧急覆盖密码，那么我们将会拥有访问权限。
+
+根据 nteredDoorCode，passedRetinaScan，以及 hasDoorKey 等布尔值，前面两个表达式的值为 false。然而，因为紧急覆盖密码是已知的，所以整个表达式为 true。
 
 ‌
 
-### Logical AND Operator 
+### 显式的括号
 
-The *logical AND operator* (a && b) creates logical
-expressions where both values must be true for the
-overall expression to also be true.
+有时候，引入括号有助于提升复杂表达式的可读性，尽管这些括号并不是必须的。在上面的门禁示例中，对第一部分表达式添加括号，可以让代码更清晰易懂：
+	
+	if (enteredDoorCode && passedRetinaScan) || hasDoorKey || knowsOverridePassword {
+    	println("Welcome!")
+	} else {
+    	println("ACCESS DENIED")
+	}
+	// 输出 "Welcome!"
 
-If either value is false, the overall expression will
-also be false. In fact, if the *first* value is
-false, the second value won’t even be evaluated, because
-it can’t possibly make the overall expression equate to
-true. This is known as *short-circuit evaluation*.
-
-This example considers two Bool values and only allows
-access if both values are true:
-
-    let
-    let
-    if
-    {
-        println)
-    } else {
-        println)
-    }
-    // prints "ACCESS DENIED"
-
-‌
-
-### Logical OR Operator 
-
-The *logical OR operator* (a || b) is an infix operator
-made from two adjacent pipe characters. You use it to create logical
-expressions in which only *one* of the two values has to be
-true for the overall expression to be
-true.
-
-Like the Logical AND operator above, the Logical OR operator uses
-short-circuit evaluation to consider its expressions. If the left side
-of a Logical OR expression is true, the right side is not
-evaluated, because it cannot change the outcome of the overall
-expression.
-
-In the example below, the first Bool value
-(hasDoorKey, but the second
-value (knowsOverridePassword.
-Because one value is true, the overall expression also
-evaluates to true, and access is allowed:
-
-    let
-    let
-    if
-    {
-        println)
-    } else {
-        println)
-    }
-    // prints "Welcome!"
-
-‌
-
-### Combining Logical Operators 
-
-You can combine multiple logical operators to create longer compound
-expressions:
-
-    if
-    || hasDoorKey {
-        println)
-    } else {
-        println)
-    }
-    // prints "Welcome!"
-
-This example uses multiple &&
-operators to create a longer compound expression. However, the
-&& operators still operate on only
-two values, so this is actually three smaller expressions chained
-together. It can be read as:
-
-If we’ve entered the correct door code and passed the retina scan; or if
-we have a valid door key; or if we know the emergency override password,
-then allow access.
-
-Based on the values of enteredDoorCode,
-passedRetinaScan, the
-first two mini-expressions are false. However, the
-emergency override password is known, so the overall compound expression
-still evaluates to true.
-
-‌
-
-### Explicit Parentheses 
-
-It is sometimes useful to include parentheses when they are not strictly
-needed, to make the intention of a complex expression easier to read. In
-the door access example above, it is useful to add parentheses around
-the first part of the compound expression to make its intent explicit:
-
-    if &&
-    passedRetinaScan ||
-    knowsOverridePassword {
-        println)
-    } else {
-        println)
-    }
-    // prints "Welcome!"
-
-The parentheses make it clear that the first two values are considered
-as part of a separate possible state in the overall logic. The output of
-the compound expression doesn’t change, but the overall intention is
-clearer to the reader. Readability is always preferred over brevity; use
-parentheses where they help to make your intentions clear.
+括号可以让表达式前两个值看起来相对独立。尽管整个表达式的真值不会因为这对括号而改变，但整行代码的意图却变得清晰明了。可读性总是比简洁性更重要；使用括号有助于明确你的代码意图。
