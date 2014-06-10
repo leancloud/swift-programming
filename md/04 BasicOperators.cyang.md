@@ -412,7 +412,7 @@ Swift 包含两种*范围运算符*。使用范围运算符，可以非常简洁
 
 如果我们输入了正确的门牌号并且通过了视网膜扫描；或者如果我们拥有有效的钥匙；抑或如果我们知道紧急覆盖密码，那么我们将会拥有访问权限。
 
-根据 nteredDoorCode，passedRetinaScan，以及 hasDoorKey 等布尔值，前面两个表达式的值为 false。然而，因为紧急覆盖密码是已知的，所以整个表达式为 true。
+根据 enteredDoorCode，passedRetinaScan，以及 hasDoorKey 等布尔值，前面两个表达式的值为 false。然而，因为紧急覆盖密码是已知的，所以整个表达式为 true。
 
 ‌
 
