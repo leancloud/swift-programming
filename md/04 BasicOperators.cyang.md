@@ -1,11 +1,9 @@
 基础运算符
 ------------
 
-*运算符*是一种可以检查、修改或结合数值的特殊符号或短语。例如，加法运算符可以将两个数字相加（ `let i = 1 + 2` ）。
-更复杂的例子还包括逻辑与运算符 `&&`（ `if enteredDoorCode && passedRetinaScan` ）以及可以简化增量操作的运算符 `++i`。
+*运算符*是一种可以检查、修改或结合数值的特殊符号或短语。例如，加法运算符可以将两个数字相加（ `let i = 1 + 2` ）。更复杂的例子还包括逻辑与运算符 `&&`（ `if enteredDoorCode && passedRetinaScan` ）以及可以简化增量操作的运算符 `++i`。
 
-Swift 支持大多数标准 C 运算符，并增强了避免常见编码错误的能力。赋值运算符（ `=` ）没有返回值，这可以防止误用（ `=` ）和等于符号（ `==` ）。
-算数运算符（ `+` ，`*` ）会检测且禁止数值溢出，避免因处理数据不当而导致的意外结果。你可以使用 Swift 的溢出运算符来自定义溢出行为，详情请参考 [溢出运算符](https://www.zybuluo.com/ghosert/note/16198#overflow-operators)。
+Swift 支持大多数标准 C 运算符，并增强了避免常见编码错误的能力。赋值运算符（ `=` ）没有返回值，这可以防止误用（ `=` ）和等于符号（ `==` ）。算数运算符（ `+` ，`*` ）会检测且禁止数值溢出，避免因处理数据不当而导致的意外结果。你可以使用 Swift 的溢出运算符来自定义溢出行为，详情请参考 [溢出运算符](https://www.zybuluo.com/ghosert/note/16198#overflow-operators)。
 
 Swift 并不像 C 那样允许你对浮点数做求余运算。它提供了两种 C 不曾拥有的范围运算符（ `a..b` ），这样的运算符可以非常方便地表示数据范围。
 
@@ -85,7 +83,7 @@ Swift 支持所有类型的四则*算数运算符*：
 
 下面是求余运算符的工作原理。计算 `9 % 4`，首先你需要计算出 9 能容纳多少个 4：
 
-![image](https://blog.avoscloud.com/wp-content/uploads/2014/06/remainder-1.png)
+<a href="https://blog.avoscloud.com/wp-content/uploads/2014/06/remainder-1.png" rel="attachment wp-att-1340"><img src="https://blog.avoscloud.com/wp-content/uploads/2014/06/remainder-1-625x123.png" alt="remainderInteger" width="625" height="123" class="alignnone size-medium wp-image-1340" /></a>
 
 9 能容纳两个 4，余数应该为 1（橙色部分）。在 Swift 中，上面的运算可以这样表示:
 	
@@ -123,7 +121,7 @@ a = (b * some multiplier) + remainder
 ```
 
 ‌在上面这个例子中，8 除以 2.5 等于 3，余数为 0.5，所以求余运算符返回一个 `Double` 值 0.5。
-![image](https://blog.avoscloud.com/wp-content/uploads/2014/06/remainder-2.png)
+<a href="https://blog.avoscloud.com/wp-content/uploads/2014/06/remainder-2.png" rel="attachment wp-att-1341"><img src="https://blog.avoscloud.com/wp-content/uploads/2014/06/remainder-2.png" alt="remainderFloat" width="602" height="133" class="alignnone size-full wp-image-1341" /></a>
 
 ### 增量与减量运算符
 和 C 类似，Swift 也提供了可以便捷的对某个数字做加一或减一操作的运算符：*增量运算符*和*减量运算符*。你可以使用者两个运算符对整型或浮点型变量做操作：
@@ -156,7 +154,6 @@ a = (b * some multiplier) + remainder
 	let plusThree = -minusThree     // plusThree 等于 3
 
 一元减法运算符（ `-` ）直接位于操作数的前面，中间不能有空格。
-‌
 
 ### 一元加法运算符
 *一元加法运算符*直接返回操作数的值，不对其做任何修改：
@@ -168,6 +165,7 @@ a = (b * some multiplier) + remainder
 
 ### 复合赋值运算符     
 与 C 类似，Swift 提供*复合赋值运算符*来结合赋值（ `=` ）与其他操作。下面是一个*加法赋值运算符*（ `+=` ）的例子：
+
 	var a = 1
 	a += 2
 	// 现在 a 等于 3
