@@ -113,10 +113,6 @@ a = (b * some multiplier) + remainder
 ```
 9 = (4 * 2) + 1
 ```
-The same method is applied when calculating the remainder for a negative
-value of a:
-
-    -9
 
 同样的方法可以用来计算某个负数的余数：
 
