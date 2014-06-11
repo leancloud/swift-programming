@@ -5,11 +5,11 @@
 更复杂的例子还包括逻辑与运算符 `&&`（ `if enteredDoorCode && passedRetinaScan` ）以及可以简化增量操作的运算符 `++i`。
 
 Swift 支持大多数标准 C 运算符，并增强了避免常见编码错误的能力。赋值运算符（ `=` ）没有返回值，这可以防止误用（ `=` ）和等于符号（ `==` ）。
-算数运算符（ `+` ，`*` ）会检测且禁止数值溢出，避免因处理数据不当而导致的意外结果。你可以使用 Swift 的溢出运算符来自定义溢出行为，详情请参考 [溢出运算符](AdvancedOperators.xhtml#TP40014097-CH27-XID_37)。
+算数运算符（ `+` ，`*` ）会检测且禁止数值溢出，避免因处理数据不当而导致的意外结果。你可以使用 Swift 的溢出运算符来自定义溢出行为，详情请参考 [溢出运算符](https://www.zybuluo.com/ghosert/note/16198#overflow-operators)。
 
 Swift 并不像 C 那样允许你对浮点数做求余运算。它提供了两种 C 不曾拥有的范围运算符（ `a..b` ），这样的运算符可以非常方便地表示数据范围。
 
-本章将会详细解读 Swift 的常用运算符。[高级运算符](AdvancedOperators.xhtml) 则涵盖了 Swift 的高级运算符，它会告诉你如何定义你自己的运算符，并为你自己的类型实现标准运算符。
+本章将会详细解读 Swift 的常用运算符。[高级运算符](https://www.zybuluo.com/ghosert/note/16198#advanced-operators) 则涵盖了 Swift 的高级运算符，它会告诉你如何定义你自己的运算符，并为你自己的类型实现标准运算符。
 ‌
 
 ### 专有名词
@@ -67,7 +67,7 @@ Swift 支持所有类型的四则*算数运算符*：
 10.0 / 2.5  // 等于4.0
 ```
 
-与 C 和 Objective-C 的算数运算符不同，Swift 的算数运算符默认禁止数值溢出。你可以使用 Swift 的溢出运算符（例如 `a &+ b`）来选择数值溢出相关行为。详情参考 [溢出运算符](AdvancedOperators.xhtml#TP40014097-CH27-XID_37)。
+与 C 和 Objective-C 的算数运算符不同，Swift 的算数运算符默认禁止数值溢出。你可以使用 Swift 的溢出运算符（例如 `a &+ b`）来选择数值溢出相关行为。详情参考 [溢出运算符](https://www.zybuluo.com/ghosert/note/16198#overflow-operators)。
 
 加法运算符也支持字符串连接：
 
@@ -80,7 +80,7 @@ Swift 支持所有类型的四则*算数运算符*：
 	let dogCow = dog + cow
 	// dogCow 等于 "dc"
 
-详情请参考 [字符串与字符连接](StringsAndCharacters.xhtml#TP40014097-CH7-XID_379)。
+详情请参考 [字符串与字符连接](https://www.zybuluo.com/ghosert/note/16162#concatenating-strings-and-characters)。
 ‌
 
 ### 求余运算符
@@ -209,7 +209,7 @@ value of a:
 > 复合赋值运算符没有返回值。例如，类似 `let b = a += 2` 这样的代码是非法的。它和前面提到的
 > 增量或减量运算符有着不一样的行为。
 
-有关复合赋值运算符的完整列表，可以参考 [表达式](Expressions.xhtml)。
+有关复合赋值运算符的完整列表，可以参考 [表达式](https://www.zybuluo.com/ghosert/note/16206#expressions)。
 ‌
 
 ### 比较运算符
@@ -226,7 +226,7 @@ Swift 支持所有标准 C *比较运算符*：
 
 > 注意
 >
-> Swift 还提供了两种用于测试两个对象引用是否指向同一个对象实例的*标示运算符*（ `===` 和 `!==`）。更多信息，可以参考[对象与结构体](lassesAndStructures.xhtml)
+> Swift 还提供了两种用于测试两个对象引用是否指向同一个对象实例的*标示运算符*（ `===` 和 `!==`）。更多信息，可以参考[对象与结构体](https://www.zybuluo.com/ghosert/note/16180#classes-and-structures)
 
 每个比较运算符返回标示某个表达式是否为 true 的布尔值:
 
@@ -249,7 +249,7 @@ Swift 支持所有标准 C *比较运算符*：
 	}
 	// 因为 name 确实等于 "wolrd"，所有输出 "hello, world"
 
-更多关于 if 语句的信息，参考[控制流](ControlFlow.xhtml)
+更多关于 if 语句的信息，参考[控制流](https://www.zybuluo.com/ghosert/note/16164#control-flow)
 ‌
 
 ### 三元条件运算符 
@@ -310,7 +310,7 @@ Swift 包含两种*范围运算符*。使用范围运算符，可以非常简洁
 	// 4 times 5 is 20
 	// 5 times 5 is 25
 
-更多有关 `for-in` 循环的信息，可以参考[控制流](ControlFlow.xhtml)。
+更多有关 `for-in` 循环的信息，可以参考[控制流](https://www.zybuluo.com/ghosert/note/16164#control-flow)。
 
 
 ### 半闭范围运算符
@@ -329,7 +329,7 @@ Swift 包含两种*范围运算符*。使用范围运算符，可以非常简洁
 	// Person 3 is called Brian
 	// Person 4 is called Jack
 
-‌需要说明的是，数组包含四个元素，由于 `0..count`是半闭范围，故只会计数到 3（数组最后一个元素的索引）。更多有关数组的信息，可以参考[数组](CollectionTypes.xhtml#TP40014097-CH8-XID_135)
+‌需要说明的是，数组包含四个元素，由于 `0..count`是半闭范围，故只会计数到 3（数组最后一个元素的索引）。更多有关数组的信息，可以参考[数组](https://www.zybuluo.com/ghosert/note/16163#arrays)
 
 
 ### 逻辑运算符
