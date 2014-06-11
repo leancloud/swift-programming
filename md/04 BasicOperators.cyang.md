@@ -75,10 +75,10 @@ Swift 支持所有类型的四则*算数运算符*：
 
 两个字符，或者一个字符与一个字符串，都可以相加构造为一个新的字符串：
 	
-	let dog: Character = "🐶"
-	let cow: Character = "🐮"
-	“let dogCow = dog + cow”
-	// dogCow 等于 "🐶🐮"
+	let dog: Character = "d"
+	let cow: Character = "c"
+	let dogCow = dog + cow
+	// dogCow 等于 "dc"
 
 详情请参考 [字符串与字符连接](StringsAndCharacters.xhtml#TP40014097-CH7-XID_379)。
 ‌
